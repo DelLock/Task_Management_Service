@@ -5,3 +5,18 @@
 
 Запустить это вставить то же самое, толькое в конце up а не build
 
+
+
+Установка зависимостей backend
+
+cmd
+
+cd backend
+npm install
+
+Установка зависимостей frontend
+
+cmd
+
+cd frontend
+npm install
