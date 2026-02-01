@@ -1,0 +1,48 @@
+services:
+  mongo:
+    image: mongo:6
+    container_name: task-mongo-prod
+    restart: always
+    volumes:
+      - mongo-data-prod:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: task-management
+    networks:
+      - task-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: task-backend-prod
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongo:27017/task-management
+      - JWT_SECRET=your_production_jwt_secret_here
+      - JWT_EXPIRES_IN=30d
+      - FRONTEND_URL=http://localhost
+    depends_on:
+      - mongo
+    networks:
+      - task-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: task-frontend-prod
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - task-network
+
+volumes:
+  mongo-data-prod:
+
+networks:
+  task-network:
+    driver: bridge

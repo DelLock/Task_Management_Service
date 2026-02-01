@@ -1,0 +1,47 @@
+services:
+  mongo:
+    image: mongo:6
+    container_name: task-mongo-dev
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data-dev:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: task-management
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev 
+    container_name: task-backend-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - MONGODB_URI=mongodb://mongo:27017/task-management
+      - JWT_SECRET=dev_secret_key_change_in_production
+      - JWT_EXPIRES_IN=30d
+      - FRONTEND_URL=http://localhost:8080
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev 
+    container_name: task-frontend-dev
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules  
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data-dev:

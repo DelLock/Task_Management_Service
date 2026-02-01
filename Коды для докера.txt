@@ -1,0 +1,7 @@
+Продакшн docker-compose -f docker-compose.prod.yml build
+
+Девелопмент docker-compose -f docker-compose.dev.yml build
+
+
+Запустить это вставить то же самое, толькое в конце up а не build
+

@@ -1,0 +1,32 @@
+{
+  "name": "task-management-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "preview": "vue-cli-service preview",
+    "docker:build": "docker build -t task-frontend .",
+    "docker:run": "docker run -p 8080:80 task-frontend"
+  },
+  "dependencies": {
+    "@mdi/font": "^7.2.96",
+    "axios": "^1.5.0",
+    "date-fns": "^2.30.0",
+    "socket.io-client": "^4.8.3",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.4",
+    "vuetify": "^3.3.13",
+    "vuex": "^4.1.0"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^5.0.8",
+    "sass": "^1.66.1",
+    "sass-loader": "^13.3.2",
+    "@vue/compiler-sfc": "^3.3.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
